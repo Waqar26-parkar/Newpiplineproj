@@ -33,9 +33,17 @@ jobs:
           command: |
             az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
       - run:
-          name: Build and push Docker image
+          name: Login to Azure Container Registry (ACR)
           command: |
-            az acr build --registry pycidcdregistry --image my-flask-app:latest .
+            az acr login --name pycidcdregistry
+      - run:
+          name: Pull Docker Image from ACR
+          command: |
+            docker pull pycidcdregistry.azurecr.io/my-flask-app:latest
+      - run:
+          name: Run Docker container
+          command: |
+            docker run -d -p 5000:5000 pycidcdregistry.azurecr.io/my-flask-app:latest
 
 workflows:
   version: 2

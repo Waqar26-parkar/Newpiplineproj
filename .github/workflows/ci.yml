@@ -44,6 +44,17 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Build and push Docker image
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Azure Container Registry
       run: |
-        az acr build --registry pycidcdregistry --image my-flask-app:latest .
+        az acr login --name pycidcdregistry
+
+    - name: Pull Docker Image from ACR
+      run: |
+        docker pull pycidcdregistry.azurecr.io/my-flask-app:latest
+
+    - name: Run Docker container (or deploy it elsewhere)
+      run: |
+        docker run -d -p 5000:5000 pycidcdregistry.azurecr.io/my-flask-app:latest
