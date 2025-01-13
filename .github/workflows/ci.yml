@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout code         #checks out the code from the GitHub repository
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -55,6 +55,6 @@ jobs:
       run: |
         docker pull pycidcdregistry.azurecr.io/my-flask-app:latest
 
-    - name: Run Docker container (or deploy it elsewhere)
+    - name: Run Docker container on port 9090
       run: |
-        docker run -d -p 5000:5000 pycidcdregistry.azurecr.io/my-flask-app:latest
+        docker run -d -p 9090:9090 pycidcdregistry.azurecr.io/my-flask-app:latest
