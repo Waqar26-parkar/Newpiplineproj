@@ -1,0 +1,15 @@
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.venv/
+env/
+
+# Ignore version control files
+.git/
+.gitignore
+
+# Ignore test files
+tests/
